@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+
+                    <div class="login100-form-title" style="background-image: url(/images/bg-01.jpg);">
+                        <span class="login100-form-title-1">
+                            Add New Category
+                        </span>
+                    </div>
+
+                    <form class="login100-form validate-form" th:action="@{/admin/categories/saveOrUpdate}"
+                        method="post" th:object="${category}">
+
+                        <div class="wrap-input100 validate-input m-b-26">
+                            <span class="label-input100">Category ID </span>
+                            <input type="hidden" th:field="*{isEdit}">
+                            <input class="input100" type="text" th:field="*{categoryId}" readonly>
+
+
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-18">
+                            <span class="label-input100">Name</span>
+                            <input class="input100" type="text" th:field="*{nameCategory}" placeholder="Enter Name">
+                            <span class="text-muted" th:if="${#fields.hasErrors('nameCategory')}">Name is
+                                required</span>
+                        </div>
+
+
+                        <div class="container">
+                            <button class="btn btn-secondary">
+                                Reset
+                            </button>
+                            <a th:href="@{admin/categories}" class="btn btn-success">
+                                List Categories
+                            </a>
+                            <button class="btn btn-primary">
+                                <span th:if="${category.isEdit}">Update</span>
+                                <span th:unless="${category.isEdit}">Save</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+
+</html>

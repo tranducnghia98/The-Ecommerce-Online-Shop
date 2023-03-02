@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin-category-list</title>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!--===============================================================================================-->
+
+</head>
+
+ 
+<body>
+    <div class="container">
+        <header class="row text-center">
+
+
+        </header>
+        <section class="row">
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>List of Category</h2>
+                    </div>
+                    <div class="card-body float-left">
+                      <div class="alert alert-primary" role="alert">
+                       <i th:if="${message != null}" th:text="${message}"></i>
+                      </div>
+                      <div class="float-right">
+                        <a class="btn-outline-primary" 
+                         th:href="@{/admin/categories/add}">Add New Category</a>
+                      </div>
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th >Category</th>
+                                <th >Name</th>
+                              <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each="category : ${categories}">
+                                <th scope="row" th:text="${category.categoryId}"></th>
+                                <td th:text="${category.nameCategory}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/categories/view'+${category.categoryId}}" class="btn btn-outline-info">Detail</a>
+                                    <a th:href="@{'/admin/categories/edit/' + ${category.categoryId}}" class="btn btn-outline-warning">Edit</a>
+                                    <a th:href="@{'/admin/categories/delete/' + ${category.categoryId}}" class="btn btn-outline-danger">Delete</a>
+                                </td> 
+                              </tr>
+                            
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer></footer>
+
+    </div>
+</body>
+</html>

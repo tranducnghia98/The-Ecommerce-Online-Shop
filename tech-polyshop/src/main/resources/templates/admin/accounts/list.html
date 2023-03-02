@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+    <section class="row" layout:fragment="content">
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>List of Account</h2>
+                    </div>
+                    <div class="card-body ">
+                      <div class="alert alert-primary float-left" th:if="${message != null}" role="alert">
+                       <i  th:text="${message}"></i>
+                      </div>
+                      <!-- <div class="float-right">
+                        <a class="btn-outline-primary" 
+                         th:href="@{/admin/accounts/add}">List of Account</a>
+                      </div> -->
+                      <div>
+                        <a th:href="@{/admin/accounts/add}" class="btn btn-sm btn-outline-danger m-2 float-right">Add new Account</a>
+                      </div>
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th >Account</th>
+                                <th >Password</th>
+                                <th >Email</th>
+                                <th >Phone</th>
+                            
+                              <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each="customer : ${customer}">
+                                <th scope="row" th:text="${customer.nameCustomer}"></th>
+                                <td th:text="${customer.password}"></td>
+                                <td th:text="${customer.email}"></td>
+                                <td th:text="${customer.phone}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/accounts/view'+${customer.nameCustomer}}" class="btn btn-outline-info">Detail</a>
+                                    <a th:href="@{'/admin/accounts/edit/' + ${customer.nameCustomer}}" class="btn btn-outline-warning">Edit</a>
+                                    <a th:data-id = "${customer.nameCustomer}"
+                                    th:data-name = "${customer.nameCustomer}"
+                                    onclick="showConfirm(this.getAttribute('data-id'),this.getAttribute('data-name'))"
+                                class="btn btn-outline-danger">Delete</i></a>
+                                </td> 
+                              </tr>
+                            
+                            </tbody>
+                          </table>
+                          <script>
+                            function showConfirm(id,name) {
+                              $('nameCustomer').text(name);
+                              $('#yesOption').attr('href','/admin/accounts/delete/' + id);
+                              $('#confirmationId').modal('show');
+                            }
+                          </script>
+                         
+                          <!-- Modal -->
+                          <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Comfirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  Do you want to delete <span id="productName"></span>
+                                </div>
+                                <div class="modal-footer">
+                                  <a id="yesOption"  type="button" class="btn btn-danger">Delete</a>
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancle</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </div>
+          </section>
+
+
+
+        </body>
+        
+        </html>

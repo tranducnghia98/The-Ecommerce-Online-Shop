@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{site/dashboardLayout.html}">
+
+<head>
+  ...
+</head>
+
+<body>
+  <section layout:fragment="content">
+  <section class="row" >
+    <div class="col mt-4">
+      <div class="card">
+        <div class="card-header">
+          <h2>List Cart Item</h2>
+        </div>
+        <div class="card-body float-left">
+          <div th:if="${message != null}" class="alert alert-primary" role="alert">
+            <i th:text="${message}"></i>
+          </div>
+          <!-- <div class="float-right">
+                <a class="btn-outline-primary" 
+                  th:href="@{/admin/categories/add}">Add New Category</a>
+              </div> -->
+          <div>
+            <!-- <a th:href="@{/admin/products/add}" class="btn btn-sm btn-outline-danger m-2 float-right">Add new product</a> -->
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each=" item :${CART}">
+                <td scope="row" th:text="${item.productId}">1</td>
+                <td th:text="${item.nameProduct}">iphing</td>
+                <td th:text="${item.unitPrice}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.unitPrice}  * ${item.quantity}">16000</td>
+                <td><a th:href="@{'/site/delete/' + ${item.productId}}" class="btn btn-primary">Delete</a>
+                  <a th:href="@{'/site/order/' + ${item.productId}}" class="btn btn-primary">Cart</a>
+                </td>
+  
+              </tr>
+  
+            </tbody>
+          </table>
+          <div>
+          <h2>Total:   <span th:text="${TOTAL}"> </span> VND</h2>
+          </div>
+  
+  
+        </div>
+        <div class="card-footer">
+          <a class="btn btn-primary" th:href="@{/site/clear}">Clear</a>
+          <a class="btn btn-primary" th:href="@{/home}">add</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+</html>
+
+

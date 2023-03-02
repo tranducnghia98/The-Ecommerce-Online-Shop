@@ -1,0 +1,156 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <section class="row">
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 th:text="${product.isEdit ? 'Edit Product' : 'Add Product'}"></h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form action="/admin/products/saveOrUpdate" method="post" enctype="multipart/form-data"
+                                th:object="${product}" class="login100-form validate-form">
+                                <div class="col-7">
+                                    <input type="hidden" name="" th:field="*{isEdit}">
+                                    <div class="wrap-input100 validate-input m-b-26"
+                                        data-validate="ProductId is required" th:if="${product.isEdit}">
+                                        <span class="label-input100">ProductId</span>
+                                        <input class="input100" type="text" name="ProductId" th:field="*{productId}"
+                                            placeholder="Enter Product ID" readonly>
+                                        <span class="focus-input100"></span>
+                                    </div>
+
+                                    <div class="wrap-input100 validate-input m-b-18" data-validate="Name is required">
+                                        <span class="label-input100">Name</span>
+                                        <input class="input100" type="text" name="name" th:field="*{nameProduct}"
+                                            placeholder="Enter Name">
+                                        <span class="focus-input100"></span>
+                                    </div>
+
+                                    <div class="wrap-input100 validate-input m-b-18"
+                                        data-validate="Quantity is required">
+                                        <span class="label-input100">Quantity</span>
+                                        <input class="input100" type="text" name="quantity" th:field="*{quantity}"
+                                            placeholder="Enter Quantity">
+                                        <span class="focus-input100"></span>
+                                    </div>
+
+                                    <div class="wrap-input100 validate-input m-b-18"
+                                        data-validate="Unit Price is required">
+                                        <span class="label-input100">Unit Price</span>
+                                        <input class="input100" type="number" name="unitPrice" th:field="*{unitPrice}"
+                                            placeholder="Enter Unit Price $">
+
+                                    </div>
+
+                                    <div class="wrap-input100 validate-input m-b-18"
+                                        data-validate="Discount is required">
+                                        <span class="label-input100">Discount</span>
+                                        <input class="input100" type="number" name="discount" th:field="*{discount}"
+                                            placeholder="Enter Discount %">
+
+                                    </div>
+                                    <div class="wrap-input100 validate-input m-b-18">
+                                        <label class="label-input100">Category
+
+                                        </label>
+                                        <select class="form-control" name="categoryId" id="categoryId"
+                                            th:field="*{categoryId}">
+                                            <option th:each="item : ${categories}" th:value="${item.categoryId}"
+                                                th:text="${item.nameCategory}"
+                                                th:selected="${item.categoryId == product.categoryId}">Category Name
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="wrap-input100 validate-input m-b-18">
+                                        <label class="label-input100">Status
+
+                                        </label>
+                                        <select th:field="*{status}" class="form-control" name="status" id="status">
+                                            <option value="0">Out Of Stock</option>
+                                            <option value="1">On sale</option>
+                                            <option value="2">Featured</option>
+                                            <option value="3">Bestseller</option>
+                                            <option value="4">Out Of Order</option>
+
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-4">
+                                    <div class="wrap-input100 validate-input m-b-18">
+                                        <script>
+                                            function chooseFile(fileInput) {
+                                                if (fileInput.files && fileInput.files[0]) {
+                                                    var reader = new FileReader();
+
+                                                    reader.onload = function (ee) {
+                                                        $('#imagee').attr('src', ee.target.result);
+                                                    }
+                                                    reader.readAsDataURL(fileInput.files[0]);
+                                                }
+                                            }
+
+                                        </script>
+                                        <!-- th:src="${product.image!=null? '/admin/products/images/' + product.image : 'images/noimage.jpg'}" -->
+                                        <img id="imagee"
+                                            th:src="${product.image!=null?'/admin/products/images/' + product.image : 'images/noimage.jpg'}"
+                                            src="/img/bg-img/1.jpg" width="90%" class="img-fluid" alt="">
+                                        <label class="label-input100" for="productImage">Image File</label>
+                                        <input type="file" onchange="chooseFile(this)"
+                                            class="form-control-file input100" name="imageFile" id="productImage"
+                                            placeholder="productImage" aria-describedby="productId">
+                                    </div>
+
+
+                                    <div class="wrap-input100 validate-input m-b-18">
+
+                                        <label class="label" for="description">Description</label>
+                                        <textarea th:field="*{description}" class="form-control input100"
+                                            name="description" id="description" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                                <div class="container d-flex  justify-content-center ">
+
+                                    <a th:href="@{/admin/products/add}" class="btn btn-secondary mx-md-n5 m-2 ">
+                                        New
+                                    </a>
+                                    <button class="btn btn-success m-2"
+                                        th:text="${product.isEdit ? 'Update' : 'Save'}">Save</button>
+                                    <a th:if="${product.isEdit}"
+                                        th:href="@{'/admin/products/delete'+ ${product.productId}}"
+                                        class="btn btn-primary m-2">
+                                        Delete
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer text-muted">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+
+</body>
+
+</html>

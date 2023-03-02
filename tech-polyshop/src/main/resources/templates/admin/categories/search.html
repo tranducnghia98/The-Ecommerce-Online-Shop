@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+ 
+<body>
+
+    
+  <section layout:fragment="content">
+        <div class="col mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2>List of Category</h2>
+                </div>
+                <div class="card-body">
+                  <div class="alert alert-primary" role="alert">
+                    <i th:if="${message != null}" th:text="${message}"></i>
+                    <div class="row">
+                    <div class="col">
+                      <form th:action="@{/admin/categories/search}">
+                        <div class="form-inline float-left">
+                          <label for="">Name</label>
+                          <input type="text" class="form-control ml-2" name="nameCategory" id="nameCategory " aria-describedby="helpId" placeholder="">
+                          <button  class="btn btn-outline-primary ml-2">Search</button>
+                        </div>
+                      </form>
+                      <div class="float-right">
+                        <a class="btn btn-outline-primary" 
+                          th:href="@{/admin/categories/add}">Add New Category</a>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th >Category</th>
+                            <th >Name</th>
+                          <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each="category : ${categories}">
+                            <th scope="row" th:text="${category.categoryId}"></th>
+                            <td th:text="${category.nameCategory}"></td>
+                            <td>
+                                <a th:href="@{'/admin/categories/view'+${category.categoryId}}" class="btn btn-outline-info">Detail</a>
+                                <a th:href="@{'/admin/categories/edit/' + ${category.categoryId}}" class="btn btn-outline-warning">Edit</a>
+                                <a th:href="@{'/admin/categories/delete/' + ${category.categoryId}}" class="btn btn-outline-danger">Delete</a>
+                            </td> 
+                          </tr>
+                        
+                        </tbody>
+                      </table>
+                </div>
+                <div class="card-footer text-muted">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+
+
+</body>
+</html>

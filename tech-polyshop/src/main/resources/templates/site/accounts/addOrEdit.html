@@ -1,0 +1,108 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{site/dashboardLayout.html}"
+>
+<!-- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{site/dashboardLayout.html}" -->
+<head>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+
+                    <div class="login100-form-title" style="background-image: url(/images/bg-01.jpg);">
+                       <!--  <span th:text="${customer.isEdit?'Edit customer':'Add new customer'}" class="login100-form-title-1">
+                            Add New Customer
+                        </span> -->
+                        <div class="alert alert-primary" role="alert">
+                            <i th:if="${message != null}" th:text="${message}"></i>
+                           </div>
+                    </div>
+
+                    <form class="login100-form validate-form" th:action="@{/accounts/saveOrUpdate}"
+                        method="post" th:object="${customer}">
+
+                       <!--  <input type="hidden" name="" th:field="*{isEdit}"> -->
+
+                        <div class="wrap-input100  m-b-26" >
+                            <span class="label-input100">customerId</span>
+                            <input readonly class="input100" type="text"
+                            th:field="*{customerId}"
+                            name="username" placeholder="Enter username">
+                            
+                             <small th:if="${#fields.hasErrors('customerId')}" class="input100 text-muted">Username is invalid</small>
+
+                           
+                        </div>
+                        <div class="wrap-input100  m-b-26" >
+                            <span class="label-input100">Name</span>
+                            <input class="input100" type="text"
+                            th:field="*{nameCustomer}"
+                            name="nameCustomer" placeholder="Enter nameCustomer">
+                            
+                             <small th:if="${#fields.hasErrors('nameCustomer')}" class="input100 text-muted">Username is invalid</small>
+
+                           
+                        </div>
+                        <div class="wrap-input100  m-b-26" >
+                            <span class="label-input100">Email</span>
+                            <input class="input100" type="text"
+                            th:field="*{email}"
+                            name="email" placeholder="Enter email">
+                            
+                             <small th:if="${#fields.hasErrors('email')}" class="input100 text-muted">email is invalid</small>
+
+                           
+                        </div>
+                        <div class="wrap-input100 m-b-18" >
+                            <span class="label-input100">Password</span>
+                            <input class="input100"
+                            th:field="*{password}"
+                            type="password" name="password" placeholder="Enter password">
+                            <small th:if="${#fields.hasErrors('password')}" class="input100 text-muted">Password is invalid</small>
+
+                        </div>
+                        <div class="wrap-input100  m-b-26" >
+                            <span class="label-input100">Phone</span>
+                            <input class="input100" type="text"
+                            th:field="*{phone}"
+                            name="phone" placeholder="Enter username">
+                            
+                             <small th:if="${#fields.hasErrors('phone')}" class="input100 text-muted">phone is invalid</small>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-18">
+                            <label class="label-input100">Status
+
+                            </label>
+                            <select th:field="*{status}" class="form-control" name="status" id="status">
+                                <option value="0">Success</option>
+                                <option value="1">Fail</option>
+                               
+
+                            </select>
+                        </div>
+                        <div class="container">
+                            <button class="btn btn-secondary">
+                                Reset
+                            </button>
+                           
+                            <button class="btn btn-primary">
+                                <span th:if="${customer.isEdit}">Update</span>
+                                <span th:unless="${customer.isEdit}">Save</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+
+</html>
